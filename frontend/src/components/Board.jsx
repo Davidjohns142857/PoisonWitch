@@ -30,16 +30,18 @@ const Board = ({
      * @returns {boolean} 是否可点击
      */
     const isCellClickable = (x, y) => {
+        if (!board || !board[x] || !playerId) return false;
+
         // 放置阶段：只有空格子可点击
         if (gameState === 'placing_pieces') {
             return board[x][y] === 'empty' && !isPositionOccupied(x, y);
         }
-        
+
         // 游戏进行阶段：轮到自己且格子未被揭示
         if (gameState === 'playing') {
             return currentPlayer === playerId && board[x][y] === 'empty';
         }
-        
+
         return false;
     };
 

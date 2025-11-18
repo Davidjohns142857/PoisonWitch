@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useGameStore } from '../hooks/useGameStore';
 import Board from '../components/Board';
@@ -18,12 +18,31 @@ const GameRoom = () => {
     const [myPoisonPosition, setMyPoisonPosition] = useState(null);
     const [showCopySuccess, setShowCopySuccess] = useState(false);
 
+    // 获取当前玩家ID
+    const playerId = useMemo(() => {
+        return wsClient.socket?.id || null;
+    }, [wsClient.socket]);
+
     // 确保已连接到服务器
     useEffect(() => {
         if (!gameState.isConnected) {
             connect();
         }
     }, [gameState.isConnected, connect]);
+
+    // 检查是否需要返回主页（直接通过URL访问且没有游戏状态）
+    useEffect(() => {
+        if (gameState.isConnected && !gameState.gameId && gameId) {
+            // 用户直接通过URL访问，但没有游戏状态，提示返回主页
+            const timer = setTimeout(() => {
+                if (!gameState.gameId) {
+                    alert('请先从主页创建或加入游戏');
+                    navigate('/');
+                }
+            }, 2000);
+            return () => clearTimeout(timer);
+        }
+    }, [gameState.isConnected, gameState.gameId, gameId, navigate]);
 
     // 监听游戏事件
     useEffect(() => {
@@ -67,11 +86,11 @@ const GameRoom = () => {
      */
     const handleCellClick = (x, y) => {
         const { gameInfo } = gameState;
-        if (!gameInfo) return;
+        if (!gameInfo || !playerId) return;
 
         // 放置毒药阶段
         if (gameInfo.state === 'placing_pieces') {
-            const myPlayer = gameInfo.players.find(p => p.id === wsClient.socket?.id);
+            const myPlayer = gameInfo.players.find(p => p.id === playerId);
             if (myPlayer && !myPlayer.poisonPlaced) {
                 placePiece(x, y);
                 setMyPoisonPosition({ x, y });
@@ -79,7 +98,7 @@ const GameRoom = () => {
         }
         // 游戏进行阶段
         else if (gameInfo.state === 'playing') {
-            if (gameInfo.currentPlayer === wsClient.socket?.id) {
+            if (gameInfo.currentPlayer === playerId) {
                 makeMove(x, y);
             }
         }
@@ -130,7 +149,6 @@ const GameRoom = () => {
     }
 
     const { gameInfo, playerNumber } = gameState;
-    const playerId = wsClient.socket?.id;
 
     return (
         <div className="game-room-container">
