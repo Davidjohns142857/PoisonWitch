@@ -1,0 +1,217 @@
+.game-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.info-section {
+    background: #f8f9fa;
+    padding: 1.25rem;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.info-section h3 {
+    color: #5a4a8a;
+    margin: 0 0 1rem 0;
+    font-size: 1.2rem;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 0.5rem;
+}
+
+.info-section h4 {
+    color: #495057;
+    margin: 0 0 0.75rem 0;
+    font-size: 1rem;
+}
+
+.info-section p {
+    margin: 0.5rem 0;
+    color: #495057;
+}
+
+/* 游戏状态 */
+.game-status {
+    text-align: center;
+}
+
+.state-text {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #667eea;
+    margin-bottom: 0.5rem;
+}
+
+.turn-text {
+    font-size: 1.1rem;
+    color: #f5576c;
+    font-weight: 500;
+}
+
+/* 提示信息 */
+.hint-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #495057;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+/* 玩家列表 */
+.players-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.player-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: white;
+    border-radius: 6px;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s;
+}
+
+.player-item.current-player {
+    border-color: #667eea;
+    background: #f0f3ff;
+}
+
+.player-name {
+    font-weight: 500;
+    color: #495057;
+}
+
+.player-status {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.poison-status {
+    font-size: 0.85rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.poison-status.placed {
+    background: #d4edda;
+    color: #155724;
+}
+
+.poison-status.not-placed {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.current-turn {
+    background: #667eea;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* 游戏规则 */
+.rules-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.rules-text p {
+    margin: 0;
+    padding-left: 0.5rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* 游戏结果 */
+.game-result {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+}
+
+.game-result h3 {
+    color: white;
+    border-bottom-color: white;
+}
+
+.result-content {
+    text-align: center;
+}
+
+.winner-announcement {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: white;
+    margin: 1rem 0;
+    animation: celebration 1s ease-in-out;
+}
+
+@keyframes celebration {
+    0%, 100% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.1) rotate(-5deg);
+    }
+    75% {
+        transform: scale(1.1) rotate(5deg);
+    }
+}
+
+@media (max-width: 1024px) {
+    .game-info {
+        gap: 1rem;
+    }
+
+    .info-section {
+        padding: 1rem;
+    }
+
+    .info-section h3 {
+        font-size: 1.1rem;
+    }
+
+    .state-text {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .game-info {
+        gap: 0.75rem;
+    }
+
+    .info-section {
+        padding: 0.75rem;
+    }
+
+    .info-section h3 {
+        font-size: 1rem;
+    }
+
+    .state-text {
+        font-size: 1.1rem;
+    }
+
+    .hint-text {
+        font-size: 0.9rem;
+    }
+
+    .player-item {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+
+    .winner-announcement {
+        font-size: 1.2rem;
+    }
+}

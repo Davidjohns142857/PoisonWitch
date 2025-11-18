@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import wsClient from '../api/websocket';
 
 /**
@@ -125,7 +125,7 @@ export const useGameStore = () => {
     }, []);
 
     // 设置WebSocket事件监听器
-    useState(() => {
+    useEffect(() => {
         const handleGameCreated = (data) => {
             setGameState(prev => ({
                 ...prev,

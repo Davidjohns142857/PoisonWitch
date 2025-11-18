@@ -1,0 +1,38 @@
+.board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.board-container {
+    display: inline-block;
+    border: 3px solid #5a4a8a;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+.board-row {
+    display: flex;
+}
+
+/* 不同尺寸的棋盘 */
+.board-5x5 .board-container {
+    width: fit-content;
+}
+
+.board-10x10 .board-container {
+    width: fit-content;
+}
+
+@media (max-width: 640px) {
+    .board {
+        padding: 0.5rem;
+    }
+
+    .board-container {
+        border-width: 2px;
+    }
+}
